@@ -10,13 +10,13 @@ tac :: String -> String
 tac = unlines . reverse . lines
 
 parse :: [String] -> IO String
-parse ("help":_) = usage >> exit
-parse ("version":_) = version >> exit
+parse ["-h"] = usage >> exit
+parse ["-v"] = version >> exit
 parse [] = getContents
 parse fs = concat `fmap` mapM readFile fs
 
 usage :: IO ()
-usage = putStrLn "Usage: tac: [help|version] [file ..]"
+usage = putStrLn "Usage: tac: [-vh] [file ..]"
 
 version :: IO ()
 version = putStrLn "tac 0.1"
